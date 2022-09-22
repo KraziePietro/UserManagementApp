@@ -1,0 +1,28 @@
+package com.bikkadIT.UserManagementApplication.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bikkadIT.UserManagementApplication.binding.LoginForm;
+import com.bikkadIT.UserManagementApplication.service.UserServiceImpl;
+
+
+@RestController
+public class LoginController {
+
+	@Autowired
+	private UserServiceImpl userServiceI;
+
+	@PostMapping("/login")
+	public ResponseEntity<String> loginCheck(@RequestBody LoginForm loginForm) {
+		String loginCheck = userServiceI.loginCheck(loginForm);
+
+		return new ResponseEntity<String>(loginCheck, HttpStatus.OK);
+
+	}
+}

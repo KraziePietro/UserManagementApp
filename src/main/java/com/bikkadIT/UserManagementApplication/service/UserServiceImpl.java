@@ -4,10 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,10 +24,13 @@ import com.bikkadIT.UserManagementApplication.entities.CityMasterEntity;
 import com.bikkadIT.UserManagementApplication.entities.CountryMasterEntity;
 import com.bikkadIT.UserManagementApplication.entities.StateMasterEntity;
 import com.bikkadIT.UserManagementApplication.entities.UserAccountEntity;
+import com.bikkadIT.UserManagementApplication.props.AppConstant;
+import com.bikkadIT.UserManagementApplication.props.AppProps;
 import com.bikkadIT.UserManagementApplication.repositories.CityRepository;
 import com.bikkadIT.UserManagementApplication.repositories.CountryRepository;
 import com.bikkadIT.UserManagementApplication.repositories.StateRepository;
 import com.bikkadIT.UserManagementApplication.repositories.UserAccountRepository;
+import com.bikkadIT.UserManagementApplication.util.EmailUtils;
 
 public class UserServiceImpl implements UserServiceI{
 
@@ -42,6 +51,7 @@ public class UserServiceImpl implements UserServiceI{
 	
 	@Autowired
 	private AppProps appProps;
+	
 	@Override
 	public String loginCheck(LoginForm loginForm) {
 		UserAccountEntity userAcccountEntity = userAccountRepository.findByEmailAndPassword(loginForm.getEmail(),
