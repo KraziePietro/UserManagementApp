@@ -14,11 +14,9 @@ public class CityMasterEntity {
 
 	@Id
 	@Column(name="CITY_ID")
-	private Integer countryId;
-	
+	private Integer cityId;
 	@Column(name="CITY_NAME")
-	private String countryName;
-	
+	private String cityname;
 	@Column(name="STATE_ID")
 	private Integer stateId;
 }

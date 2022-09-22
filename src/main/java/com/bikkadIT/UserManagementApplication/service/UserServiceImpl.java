@@ -23,7 +23,7 @@ import com.bikkadIT.UserManagementApplication.binding.UserForm;
 import com.bikkadIT.UserManagementApplication.entities.CityMasterEntity;
 import com.bikkadIT.UserManagementApplication.entities.CountryMasterEntity;
 import com.bikkadIT.UserManagementApplication.entities.StateMasterEntity;
-import com.bikkadIT.UserManagementApplication.entities.UserAccountEntity;
+import com.bikkadIT.UserManagementApplication.entities.UserAcccountEntity;
 import com.bikkadIT.UserManagementApplication.props.AppConstant;
 import com.bikkadIT.UserManagementApplication.props.AppProps;
 import com.bikkadIT.UserManagementApplication.repositories.CityRepository;
@@ -32,6 +32,7 @@ import com.bikkadIT.UserManagementApplication.repositories.StateRepository;
 import com.bikkadIT.UserManagementApplication.repositories.UserAccountRepository;
 import com.bikkadIT.UserManagementApplication.util.EmailUtils;
 
+@Service
 public class UserServiceImpl implements UserServiceI{
 
 	@Autowired
@@ -51,10 +52,9 @@ public class UserServiceImpl implements UserServiceI{
 	
 	@Autowired
 	private AppProps appProps;
-	
 	@Override
 	public String loginCheck(LoginForm loginForm) {
-		UserAccountEntity userAcccountEntity = userAccountRepository.findByEmailAndPassword(loginForm.getEmail(),
+		UserAcccountEntity userAcccountEntity = userAccountRepository.findByEmailAndPassword(loginForm.getEmail(),
 				loginForm.getPassword());
 Map<String,String> messages = appProps.getMessages();
 		  
@@ -113,10 +113,10 @@ Map<String,String> messages = appProps.getMessages();
 
 		userForm.setAccStatus(AppConstant.LOCKED);
 		userForm.setPassword(generateRandomPassword());
-		UserAccountEntity userAcccountEntity = new UserAccountEntity();
+		UserAcccountEntity userAcccountEntity = new UserAcccountEntity();
 		BeanUtils.copyProperties(userForm, userAcccountEntity);
 
-		UserAccountEntity save = userAccountRepository.save(userAcccountEntity);
+		UserAcccountEntity save = userAccountRepository.save(userAcccountEntity);
 
 		if (save != null) {
 			String Subject = "Please Check Your mail to unlock account";
@@ -178,7 +178,7 @@ Map<String,String> messages = appProps.getMessages();
 		String email = unlockAccountForm.getEmail();
 		String tmpPwd = unlockAccountForm.getTempPwd();
 
-		UserAccountEntity user = userAccountRepository.findByEmailAndPassword(email, tmpPwd);
+		UserAcccountEntity user = userAccountRepository.findByEmailAndPassword(email, tmpPwd);
 
 		if (user != null) {
 			user.setAccStatus("UNLOCKED");
@@ -193,7 +193,7 @@ Map<String,String> messages = appProps.getMessages();
 
 	@Override
 	public String forgotPwd(String email) {
-		UserAccountEntity user = userAccountRepository.findByEmail(email);
+		UserAcccountEntity user = userAccountRepository.findByEmail(email);
 
 		if (user != null) {
 			String subject = "Password is sent to your mail id.Check your mail";
@@ -205,7 +205,7 @@ Map<String,String> messages = appProps.getMessages();
 		return "FAIL";
 	}
 
-	private String getForgotpassEmail(UserAccountEntity userForm) {
+	private String getForgotpassEmail(UserAcccountEntity userForm) {
 
 		StringBuffer sb = new StringBuffer();
 

@@ -1,11 +1,18 @@
 package com.bikkadIT.UserManagementApplication.repositories;
 
-import com.bikkadIT.UserManagementApplication.entities.UserAccountEntity;
+import java.io.Serializable;
 
-public interface UserAccountRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-	public UserAccountEntity findByEmailAndPassword(String email,String password);
-	   
-	  public UserAccountEntity findByEmail(String email);
+import com.bikkadIT.UserManagementApplication.entities.UserAcccountEntity;
+@Repository
+public interface UserAccountRepository extends JpaRepository<UserAcccountEntity, Serializable> {
+
+	public UserAcccountEntity findByEmailAndPassword(String email,String password);
+   
+	  public UserAcccountEntity findByEmail(String email);
+
 
 }
+
