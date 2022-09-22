@@ -6,7 +6,7 @@ public class UserServiceImpl implements UserServiceI{
 
 	@Override
 	public String loginCheck(LoginForm loginform) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
