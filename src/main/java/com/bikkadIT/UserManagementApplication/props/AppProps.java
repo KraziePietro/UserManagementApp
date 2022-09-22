@@ -21,4 +21,5 @@ public class AppProps {
 	public void setMessages(Map<String, String> messages) {
 		this.messages = messages;
 	}
+	
 }
